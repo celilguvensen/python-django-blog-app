@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{%load static%} <!--static klasörünü layout.html'e yükledik. Django bu static anahtar kelimesine bakacak 225-->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css'%}">  <!--static anahtar kelimesine bakarak static kalsörünün altındaki'css/bootstrap.min.css' dosyasını alacak-->
+    <title>Ybblog</title>
+</head>
+<body>
+    <!--<br><br><br> --><!--Boşluk bırakır Bunun yerine css'de margin-top style kullandık--> 
+
+    {% include "includes/navbar.html" %}
+    <!-- Django mesaj html source dökümanı
+        {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %} -->
+
+    <div style = "margin-top : 100px;" class = "container">
+            {% if messages %}
+                {% for message in messages %}
+                {% if message.tags == "info" %}
+                <div  class="alert alert-danger">{{ message }}</div>
+                
+                {% else %}
+                <div  class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endif %}
+                
+                {% endfor %}
+            
+            {% endif %}
+        {% block body %}
+            
+        {% endblock body %}
+     </div>
+
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'js/jquery-3.2.1.min.js'%}"></script>
+
+</body>
+</html>
